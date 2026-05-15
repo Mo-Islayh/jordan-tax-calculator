@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاسبة الرواتب الأردنية</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background:
+        radial-gradient(circle at top right, #1e3a8a 0%, transparent 30%),
+        radial-gradient(circle at bottom left, #0f172a 0%, transparent 35%),
+        linear-gradient(135deg, #020617, #0f172a, #111827);
+      min-height: 100vh;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(to right, #60a5fa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(14px);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    }
+
+    .card h2 {
+      margin-bottom: 25px;
+      font-size: 24px;
+      color: #f8fafc;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 4px rgba(56,189,248,0.15);
+    }
+
+    select option {
+      color: black;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(37,99,235,0.4);
+    }
+
+    .results {
+      margin-top: 25px;
+      display: grid;
+      gap: 15px;
+    }
+
+    .result-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 18px;
+      border-radius: 18px;
+    }
+
+    .result-label {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .result-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .accent {
+      color: #38bdf8;
+    }
+
+    .note {
+      margin-top: 40px;
+      text-align: center;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>حاسبة الرواتب الأردنية</h1>
+    <p>
+      احسب الضريبة والضمان الاجتماعي وصافي الراتب أو اعرف الراتب قبل الخصم
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <!-- الحاسبة الأساسية -->
+    <div class="card">
+      <h2>💰 حساب الاقتطاعات</h2>
+
+      <label>الراتب الشهري قبل الخصم</label>
+      <input type="number" id="grossSalary" placeholder="مثال: 3000">
+
+      <label>الحالة الاجتماعية</label>
+      <select id="maritalStatus1">
+        <option value="single">أعزب</option>
+        <option value="married">متزوج</option>
+      </select>
+
+      <button onclick="calculateDeductions()">احسب الآن</button>
+
+      <div class="results" id="results1" style="display:none;">
+
+        <div class="result-box">
+          <div class="result-label">الضمان الاجتماعي</div>
+          <div class="result-value accent" id="social1"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">ضريبة الدخل</div>
+          <div class="result-value accent" id="tax1"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">إجمالي الاقتطاعات</div>
+          <div class="result-value" id="deductions1"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">صافي الراتب</div>
+          <div class="result-value" id="net1"></div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- الحاسبة العكسية -->
+    <div class="card">
+      <h2>🧮 حساب الراتب قبل الخصم</h2>
+
+      <label>صافي الراتب (بعد الخصم)</label>
+      <input type="number" id="netSalaryInput" placeholder="مثال: 2421">
+
+      <label>الحالة الاجتماعية</label>
+      <select id="maritalStatus2">
+        <option value="single">أعزب</option>
+        <option value="married">متزوج</option>
+      </select>
+
+      <button onclick="reverseCalculate()">احسب الراتب الأصلي</button>
+
+      <div class="results" id="results2" style="display:none;">
+
+        <div class="result-box">
+          <div class="result-label">الراتب قبل الخصم</div>
+          <div class="result-value accent" id="gross2"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">الضمان الاجتماعي</div>
+          <div class="result-value" id="social2"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">ضريبة الدخل</div>
+          <div class="result-value" id="tax2"></div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-label">إجمالي الاقتطاعات</div>
+          <div class="result-value" id="deductions2"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    الحسبة تقريبية وتعتمد على شرائح ضريبة الدخل الأردنية الشائعة ونسبة ضمان 7.5٪ للموظف.<br>
+    لا تشمل التأمين الصحي أو الاقتطاعات الإضافية الخاصة بالشركات.
+  </div>
+
+</div>
+
+<script>
+
+function calculateTax(monthlySalary, maritalStatus) {
+
+  const annualSalary = monthlySalary * 12;
+
+  let exemption = maritalStatus === 'married' ? 18000 : 9000;
+
+  let taxableIncome = annualSalary - exemption;
+
+  if (taxableIncome < 0) taxableIncome = 0;
+
+  const brackets = [
+    { limit: 5000, rate: 0.05 },
+    { limit: 5000, rate: 0.10 },
+    { limit: 5000, rate: 0.15 },
+    { limit: 5000, rate: 0.20 },
+    { limit: Infinity, rate: 0.25 }
+  ];
+
+  let remaining = taxableIncome;
+  let annualTax = 0;
+
+  for (let bracket of brackets) {
+
+    if (remaining <= 0) break;
+
+    const amount = Math.min(remaining, bracket.limit);
+
+    annualTax += amount * bracket.rate;
+
+    remaining -= amount;
+  }
+
+  return annualTax / 12;
+}
+
+
+function calculateDeductions() {
+
+  const salary = parseFloat(document.getElementById('grossSalary').value);
+  const maritalStatus = document.getElementById('maritalStatus1').value;
+
+  if (!salary || salary <= 0) {
+    alert('الرجاء إدخال راتب صحيح');
+    return;
+  }
+
+  const social = salary * 0.075;
+  const tax = calculateTax(salary, maritalStatus);
+
+  const deductions = social + tax;
+  const net = salary - deductions;
+
+  document.getElementById('social1').innerText = social.toFixed(2) + ' د.أ';
+  document.getElementById('tax1').innerText = tax.toFixed(2) + ' د.أ';
+  document.getElementById('deductions1').innerText = deductions.toFixed(2) + ' د.أ';
+  document.getElementById('net1').innerText = net.toFixed(2) + ' د.أ';
+
+  document.getElementById('results1').style.display = 'grid';
+}
+
+
+function reverseCalculate() {
+
+  const targetNet = parseFloat(document.getElementById('netSalaryInput').value);
+  const maritalStatus = document.getElementById('maritalStatus2').value;
+
+  if (!targetNet || targetNet <= 0) {
+    alert('الرجاء إدخال صافي راتب صحيح');
+    return;
+  }
+
+  let estimatedGross = targetNet;
+
+  for (let i = 0; i < 100; i++) {
+
+    const social = estimatedGross * 0.075;
+    const tax = calculateTax(estimatedGross, maritalStatus);
+
+    const net = estimatedGross - social - tax;
+
+    const difference = targetNet - net;
+
+    estimatedGross += difference;
+  }
+
+  const social = estimatedGross * 0.075;
+  const tax = calculateTax(estimatedGross, maritalStatus);
+
+  const deductions = social + tax;
+
+  document.getElementById('gross2').innerText = estimatedGross.toFixed(2) + ' د.أ';
+  document.getElementById('social2').innerText = social.toFixed(2) + ' د.أ';
+  document.getElementById('tax2').innerText = tax.toFixed(2) + ' د.أ';
+  document.getElementById('deductions2').innerText = deductions.toFixed(2) + ' د.أ';
+
+  document.getElementById('results2').style.display = 'grid';
+}
+
+</script>
+
+</body>
+</html>
+
