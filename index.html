@@ -1,285 +1,718 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>حاسبة الرواتب الأردنية</title>
+
+  <!-- SEO: Title & Description -->
+  <title>حاسبة الرواتب الأردنية 2025 | احسب ضريبة الدخل والضمان الاجتماعي</title>
+  <meta name="description" content="حاسبة رواتب أردنية مجانية لعام 2025 – احسب ضريبة الدخل وخصم الضمان الاجتماعي وصافي راتبك الشهري، أو اعرف راتبك الإجمالي قبل الاقتطاعات وفق قانون ضريبة الدخل الأردني." />
+  <meta name="keywords" content="حاسبة رواتب اردنية, ضريبة الدخل الاردن, الضمان الاجتماعي الاردن, صافي الراتب, حساب الراتب, حاسبة الراتب 2025, Jordan salary calculator, income tax Jordan, SSC deduction Jordan, راتب قبل الضريبة, راتب بعد الضريبة, اقتطاعات الراتب" />
+  <meta name="author" content="حاسبة الرواتب الأردنية" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://jordansalarycalc.jo/" />
+
+  <!-- Open Graph (WhatsApp / Facebook) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_JO" />
+  <meta property="og:title" content="حاسبة الرواتب الأردنية 2025 – ضريبة الدخل والضمان الاجتماعي" />
+  <meta property="og:description" content="احسب ضريبة الدخل الأردنية وخصومات الضمان الاجتماعي وصافي راتبك بدقة وبسهولة تامة." />
+  <meta property="og:url" content="https://jordansalarycalc.jo/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="حاسبة الرواتب الأردنية 2025" />
+  <meta name="twitter:description" content="احسب صافي راتبك الأردني بعد خصم الضريبة والضمان الاجتماعي – مجاناً وفوراً." />
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "حاسبة الرواتب الأردنية",
+    "url": "https://jordansalarycalc.jo/",
+    "description": "حاسبة مجانية لحساب ضريبة الدخل والضمان الاجتماعي وصافي الراتب في الأردن",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "inLanguage": "ar",
+    "audience": { "@type": "Audience", "geographicArea": { "@type": "Country", "name": "Jordan" } },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JOD" }
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "كم نسبة خصم الضمان الاجتماعي في الأردن؟",
+        "acceptedAnswer": { "@type": "Answer", "text": "7.5٪ من الراتب الإجمالي تُخصم من الموظف، بينما يدفع صاحب العمل 14.25٪." }
+      },
+      {
+        "@type": "Question",
+        "name": "ما هي شرائح ضريبة الدخل في الأردن؟",
+        "acceptedAnswer": { "@type": "Answer", "text": "تبدأ شرائح ضريبة الدخل من 5٪ على أول 5000 دينار خاضعة للضريبة، وتصل تدريجياً إلى 25٪ على ما يزيد عن 20000 دينار." }
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #05080f;
+      --surface: #0d1524;
+      --surface2: #111d30;
+      --border: rgba(255,255,255,0.07);
+      --border-active: #2f7de1;
+      --gold: #f5c842;
+      --gold2: #e8a820;
+      --blue: #2f7de1;
+      --cyan: #22d3ee;
+      --text: #e8edf5;
+      --muted: #7a8ea8;
+      --success: #34d399;
+      --error: #f87171;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Cairo', sans-serif;
-      background:
-        radial-gradient(circle at top right, #1e3a8a 0%, transparent 30%),
-        radial-gradient(circle at bottom left, #0f172a 0%, transparent 35%),
-        linear-gradient(135deg, #020617, #0f172a, #111827);
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background: var(--bg);
       min-height: 100vh;
-      color: white;
-      padding: 40px 20px;
+      color: var(--text);
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
+    /* ── Background ── */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(47,125,225,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(47,125,225,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .bg-glow {
+      position: fixed; top: -200px; right: -200px; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(47,125,225,0.12) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .bg-glow2 {
+      position: fixed; bottom: -200px; left: -100px; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,200,66,0.07) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
     }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
+    /* ── Layout ── */
+    .wrapper { position: relative; z-index: 1; max-width: 1140px; margin: auto; padding: 48px 20px 80px; }
+
+    /* ── Header ── */
+    .header {
+      text-align: center; margin-bottom: 56px;
+      animation: fadeDown .6s ease both;
+    }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.25);
+      color: var(--gold); padding: 6px 18px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; margin-bottom: 20px; letter-spacing: 0.02em;
+    }
+    .header h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 700; line-height: 1.2;
+      color: #fff;
+    }
+    .header h1 span { color: var(--gold); }
+    .header p {
+      margin-top: 14px; color: var(--muted); font-size: clamp(15px, 2vw, 17px);
+      max-width: 540px; margin-inline: auto; line-height: 1.8;
+    }
+    .header-year {
+      display: inline-block; margin-top: 16px;
+      background: rgba(47,125,225,0.12); border: 1px solid rgba(47,125,225,0.25);
+      color: var(--cyan); padding: 4px 14px; border-radius: 999px;
+      font-size: 13px; font-weight: 600;
     }
 
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      background: linear-gradient(to right, #60a5fa, #22d3ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    /* ── Grid ── */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
 
-    .hero p {
-      color: #cbd5e1;
-      font-size: 18px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-    }
-
+    /* ── Card ── */
     .card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(14px);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 30px;
+      position: relative; overflow: hidden;
+      animation: fadeUp .6s ease both;
     }
-
-    .card h2 {
-      margin-bottom: 25px;
-      font-size: 24px;
-      color: #f8fafc;
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      border-radius: 20px 20px 0 0;
     }
+    .card:nth-child(2)::before { background: linear-gradient(90deg, var(--gold2), var(--gold)); }
+    .card:nth-child(2) { animation-delay: .1s; }
 
+    .card-head {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+    }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 12px; display: grid;
+      place-items: center; font-size: 20px;
+      background: linear-gradient(135deg, rgba(47,125,225,0.2), rgba(34,211,238,0.1));
+      border: 1px solid rgba(47,125,225,0.2);
+      flex-shrink: 0;
+    }
+    .card:nth-child(2) .card-icon {
+      background: linear-gradient(135deg, rgba(245,200,66,0.2), rgba(232,168,32,0.1));
+      border-color: rgba(245,200,66,0.25);
+    }
+    .card h2 { font-size: 20px; font-weight: 700; color: #fff; }
+
+    /* ── Form ── */
+    .field { margin-bottom: 20px; }
     label {
-      display: block;
-      margin-bottom: 10px;
-      color: #cbd5e1;
-      font-size: 15px;
-      font-weight: 600;
+      display: block; margin-bottom: 8px;
+      color: var(--muted); font-size: 14px; font-weight: 600;
     }
-
     input, select {
-      width: 100%;
-      padding: 15px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      font-size: 16px;
-      outline: none;
-      margin-bottom: 20px;
-      transition: 0.3s;
+      width: 100%; padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text); font-family: inherit;
+      font-size: 15px; outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
     }
-
     input:focus, select:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 4px rgba(56,189,248,0.15);
+      border-color: var(--border-active);
+      box-shadow: 0 0 0 3px rgba(47,125,225,0.15);
+    }
+    input::placeholder { color: var(--muted); }
+    select option { background: #1a2540; color: var(--text); }
+
+    /* ── Button ── */
+    .btn {
+      width: 100%; padding: 15px;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-family: inherit; font-size: 16px; font-weight: 700;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff; transition: opacity .2s, transform .2s;
+      margin-top: 4px;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      color: #111;
     }
 
-    select option {
-      color: black;
+    /* ── Results ── */
+    .results { margin-top: 24px; display: none; }
+    .results.visible { display: block; animation: fadeUp .4s ease; }
+
+    .result-divider {
+      border: none; height: 1px;
+      background: var(--border);
+      margin: 18px 0;
     }
 
-    button {
-      width: 100%;
-      border: none;
-      padding: 16px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #2563eb, #06b6d4);
-      color: white;
-      font-size: 17px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 10px;
+    .result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      gap: 12px;
     }
+    .result-row:last-child { border-bottom: none; }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(37,99,235,0.4);
-    }
-
-    .results {
-      margin-top: 25px;
-      display: grid;
-      gap: 15px;
-    }
-
-    .result-box {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 18px;
-      border-radius: 18px;
-    }
-
-    .result-label {
-      color: #94a3b8;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
+    .result-label-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .result-label { color: var(--muted); font-size: 13px; font-weight: 500; }
+    .result-sublabel { color: rgba(122,142,168,0.6); font-size: 11px; }
 
     .result-value {
-      font-size: 28px;
-      font-weight: 800;
-      color: #f8fafc;
+      font-size: 18px; font-weight: 700; color: #fff;
+      white-space: nowrap; direction: ltr;
+    }
+    .result-value.accent-blue { color: var(--cyan); }
+    .result-value.accent-gold { color: var(--gold); }
+    .result-value.accent-red  { color: var(--error); }
+    .result-value.accent-green{ color: var(--success); }
+
+    .net-box {
+      background: linear-gradient(135deg, rgba(47,125,225,0.12), rgba(34,211,238,0.06));
+      border: 1px solid rgba(47,125,225,0.2);
+      border-radius: 14px; padding: 18px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 16px;
+    }
+    .net-box.gold {
+      background: linear-gradient(135deg, rgba(245,200,66,0.12), rgba(232,168,32,0.06));
+      border-color: rgba(245,200,66,0.25);
+    }
+    .net-box .net-label { font-size: 15px; font-weight: 600; color: #fff; }
+    .net-box .net-value { font-size: 26px; font-weight: 700; color: var(--cyan); direction: ltr; }
+    .net-box.gold .net-value { color: var(--gold); }
+
+    /* ── Tax Brackets Table ── */
+    .brackets-section {
+      margin-top: 48px;
+      animation: fadeUp .6s .2s ease both;
+    }
+    .section-title {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .section-title h2 { font-size: 20px; font-weight: 700; color: #fff; }
+    .section-title .line {
+      flex: 1; height: 1px; background: var(--border);
     }
 
-    .accent {
-      color: #38bdf8;
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+    }
+    .info-card h3 {
+      font-size: 16px; font-weight: 700; color: #fff;
+      margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
     }
 
-    .note {
-      margin-top: 40px;
-      text-align: center;
-      color: #94a3b8;
-      line-height: 1.8;
-      font-size: 14px;
+    .bracket-table { width: 100%; border-collapse: collapse; }
+    .bracket-table th {
+      text-align: right; font-size: 12px; font-weight: 600;
+      color: var(--muted); padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bracket-table td {
+      padding: 10px 10px; font-size: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .bracket-table tr:last-child td { border-bottom: none; }
+    .bracket-table .rate-badge {
+      display: inline-block;
+      background: rgba(47,125,225,0.15);
+      border: 1px solid rgba(47,125,225,0.2);
+      color: var(--cyan); padding: 2px 10px; border-radius: 6px;
+      font-size: 13px; font-weight: 700;
     }
 
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 34px;
-      }
+    .ssc-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .ssc-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+    }
+    .ssc-item .who { font-size: 14px; color: var(--muted); }
+    .ssc-item .pct {
+      font-size: 16px; font-weight: 700;
+    }
+    .pct.emp { color: var(--error); }
+    .pct.er  { color: var(--blue); }
+
+    /* ── Breakdown Step ── */
+    .breakdown {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      margin-top: 16px;
+    }
+    .breakdown-title {
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+    }
+    .breakdown-title::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .step { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+    .step .s-label { color: var(--muted); }
+    .step .s-val { font-weight: 600; direction: ltr; }
+
+    /* ── FAQ ── */
+    .faq-section { margin-top: 48px; animation: fadeUp .6s .3s ease both; }
+    .faq-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; margin-bottom: 12px; overflow: hidden;
+    }
+    .faq-q {
+      padding: 18px 20px; font-size: 15px; font-weight: 600;
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 12px;
+      user-select: none;
+    }
+    .faq-q:hover { background: rgba(255,255,255,0.02); }
+    .faq-icon { font-size: 18px; transition: transform .25s; flex-shrink: 0; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .3s ease, padding .3s ease;
+      padding: 0 20px; color: var(--muted); font-size: 14px; line-height: 1.8;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 20px 18px; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 60px; text-align: center;
+      color: var(--muted); font-size: 13px; line-height: 2;
+      animation: fadeUp .6s .4s ease both;
+    }
+    .footer strong { color: rgba(255,255,255,0.5); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow2"></div>
 
-  <div class="hero">
-    <h1>حاسبة الرواتب الأردنية</h1>
-    <p>
-      احسب الضريبة والضمان الاجتماعي وصافي الراتب أو اعرف الراتب قبل الخصم
-    </p>
-  </div>
+<div class="wrapper">
 
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="header-badge">🇯🇴 مخصصة للسوق الأردني</div>
+    <h1>حاسبة الرواتب <span>الأردنية</span></h1>
+    <p>احسب ضريبة الدخل وخصم الضمان الاجتماعي وصافي راتبك الشهري بدقة وشفافية تامة</p>
+    <div class="header-year">📅 محدّثة لعام 2025</div>
+  </header>
+
+  <!-- ── Calculators ── -->
   <div class="grid">
 
-    <!-- الحاسبة الأساسية -->
+    <!-- Calculator 1: Gross → Net -->
     <div class="card">
-      <h2>💰 حساب الاقتطاعات</h2>
+      <div class="card-head">
+        <div class="card-icon">💰</div>
+        <h2>من الراتب الإجمالي إلى الصافي</h2>
+      </div>
 
-      <label>الراتب الشهري قبل الخصم</label>
-      <input type="number" id="grossSalary" placeholder="مثال: 3000">
+      <div class="field">
+        <label for="grossSalary">الراتب الشهري الإجمالي (قبل الخصم) – دينار أردني</label>
+        <input type="number" id="grossSalary" placeholder="مثال: 3000" min="0" />
+      </div>
+      <div class="field">
+        <label for="maritalStatus1">الحالة الاجتماعية</label>
+        <select id="maritalStatus1">
+          <option value="single">أعزب / عزباء (إعفاء 9,000 د.أ)</option>
+          <option value="married">متزوج / متزوجة (إعفاء 18,000 د.أ)</option>
+        </select>
+      </div>
 
-      <label>الحالة الاجتماعية</label>
-      <select id="maritalStatus1">
-        <option value="single">أعزب</option>
-        <option value="married">متزوج</option>
-      </select>
+      <button class="btn" onclick="calculateDeductions()">احسب الاقتطاعات ←</button>
 
-      <button onclick="calculateDeductions()">احسب الآن</button>
+      <div class="results" id="results1">
+        <hr class="result-divider">
 
-      <div class="results" id="results1" style="display:none;">
-
-        <div class="result-box">
-          <div class="result-label">الضمان الاجتماعي</div>
-          <div class="result-value accent" id="social1"></div>
+        <div class="breakdown" id="breakdown1">
+          <div class="breakdown-title">🧾 خطوات الحساب</div>
+          <div id="steps1"></div>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">ضريبة الدخل</div>
-          <div class="result-value accent" id="tax1"></div>
+        <hr class="result-divider">
+
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">خصم الضمان الاجتماعي</span>
+            <span class="result-sublabel">7.5٪ × الراتب الإجمالي</span>
+          </div>
+          <span class="result-value accent-red" id="social1"></span>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">إجمالي الاقتطاعات</div>
-          <div class="result-value" id="deductions1"></div>
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">ضريبة الدخل الشهرية</span>
+            <span class="result-sublabel">وفق الشرائح الأردنية</span>
+          </div>
+          <span class="result-value accent-red" id="tax1"></span>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">صافي الراتب</div>
-          <div class="result-value" id="net1"></div>
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">إجمالي الاقتطاعات</span>
+            <span class="result-sublabel">ضمان + ضريبة</span>
+          </div>
+          <span class="result-value" id="deductions1"></span>
         </div>
 
+        <div class="net-box">
+          <span class="net-label">✅ صافي الراتب</span>
+          <span class="net-value" id="net1"></span>
+        </div>
       </div>
     </div>
 
-
-    <!-- الحاسبة العكسية -->
+    <!-- Calculator 2: Net → Gross (Reverse) -->
     <div class="card">
-      <h2>🧮 حساب الراتب قبل الخصم</h2>
+      <div class="card-head">
+        <div class="card-icon">🧮</div>
+        <h2>من الصافي إلى الراتب الإجمالي</h2>
+      </div>
 
-      <label>صافي الراتب (بعد الخصم)</label>
-      <input type="number" id="netSalaryInput" placeholder="مثال: 2421">
+      <div class="field">
+        <label for="netSalaryInput">صافي الراتب المستلم – دينار أردني</label>
+        <input type="number" id="netSalaryInput" placeholder="مثال: 2421" min="0" />
+      </div>
+      <div class="field">
+        <label for="maritalStatus2">الحالة الاجتماعية</label>
+        <select id="maritalStatus2">
+          <option value="single">أعزب / عزباء (إعفاء 9,000 د.أ)</option>
+          <option value="married">متزوج / متزوجة (إعفاء 18,000 د.أ)</option>
+        </select>
+      </div>
 
-      <label>الحالة الاجتماعية</label>
-      <select id="maritalStatus2">
-        <option value="single">أعزب</option>
-        <option value="married">متزوج</option>
-      </select>
+      <button class="btn btn-gold" onclick="reverseCalculate()">احسب الراتب الأصلي ←</button>
 
-      <button onclick="reverseCalculate()">احسب الراتب الأصلي</button>
+      <div class="results" id="results2">
+        <hr class="result-divider">
 
-      <div class="results" id="results2" style="display:none;">
-
-        <div class="result-box">
-          <div class="result-label">الراتب قبل الخصم</div>
-          <div class="result-value accent" id="gross2"></div>
+        <div class="breakdown" id="breakdown2">
+          <div class="breakdown-title">🧾 خطوات الحساب</div>
+          <div id="steps2"></div>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">الضمان الاجتماعي</div>
-          <div class="result-value" id="social2"></div>
+        <hr class="result-divider">
+
+        <div class="net-box gold" style="margin-bottom:16px">
+          <span class="net-label">💼 الراتب الإجمالي</span>
+          <span class="net-value" id="gross2"></span>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">ضريبة الدخل</div>
-          <div class="result-value" id="tax2"></div>
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">خصم الضمان الاجتماعي</span>
+            <span class="result-sublabel">7.5٪ × الراتب الإجمالي</span>
+          </div>
+          <span class="result-value accent-red" id="social2"></span>
         </div>
 
-        <div class="result-box">
-          <div class="result-label">إجمالي الاقتطاعات</div>
-          <div class="result-value" id="deductions2"></div>
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">ضريبة الدخل الشهرية</span>
+            <span class="result-sublabel">وفق الشرائح الأردنية</span>
+          </div>
+          <span class="result-value accent-red" id="tax2"></span>
         </div>
 
+        <div class="result-row">
+          <div class="result-label-wrap">
+            <span class="result-label">إجمالي الاقتطاعات</span>
+          </div>
+          <span class="result-value" id="deductions2"></span>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <div class="note">
-    الحسبة تقريبية وتعتمد على شرائح ضريبة الدخل الأردنية الشائعة ونسبة ضمان 7.5٪ للموظف.<br>
-    لا تشمل التأمين الصحي أو الاقتطاعات الإضافية الخاصة بالشركات.
-  </div>
+  <!-- ── Tax Brackets & SSC Info ── -->
+  <section class="brackets-section">
+    <div class="section-title">
+      <h2>📊 كيف يتم الحساب؟</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-card">
+        <h3>📈 شرائح ضريبة الدخل الأردنية</h3>
+        <table class="bracket-table">
+          <thead>
+            <tr>
+              <th>الدخل الخاضع للضريبة (سنوي)</th>
+              <th>النسبة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>أول 5,000 دينار</td>
+              <td><span class="rate-badge">5%</span></td>
+            </tr>
+            <tr>
+              <td>5,001 – 10,000 دينار</td>
+              <td><span class="rate-badge">10%</span></td>
+            </tr>
+            <tr>
+              <td>10,001 – 15,000 دينار</td>
+              <td><span class="rate-badge">15%</span></td>
+            </tr>
+            <tr>
+              <td>15,001 – 20,000 دينار</td>
+              <td><span class="rate-badge">20%</span></td>
+            </tr>
+            <tr>
+              <td>أكثر من 20,000 دينار</td>
+              <td><span class="rate-badge">25%</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.7">
+          تُطبَّق الشرائح على الدخل السنوي <strong style="color:rgba(255,255,255,0.5)">بعد</strong> خصم الإعفاء الشخصي
+          (9,000 د.أ أعزب / 18,000 د.أ متزوج).
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>🛡 الضمان الاجتماعي (SSC)</h3>
+        <ul class="ssc-list">
+          <li class="ssc-item">
+            <span class="who">خصم على الموظف</span>
+            <span class="pct emp">7.5%</span>
+          </li>
+          <li class="ssc-item">
+            <span class="who">مساهمة صاحب العمل</span>
+            <span class="pct er">14.25%</span>
+          </li>
+          <li class="ssc-item">
+            <span class="who">إجمالي الاشتراك</span>
+            <span class="pct" style="color:var(--success)">21.75%</span>
+          </li>
+        </ul>
+        <p style="margin-top:16px;font-size:12px;color:var(--muted);line-height:1.7">
+          تُحسب الحاسبة خصم <strong style="color:rgba(255,255,255,0.5)">الموظف فقط (7.5%)</strong> لأنه المبلغ المُقتطع من راتبك. مساهمة صاحب العمل لا تظهر في كشف راتبك.
+        </p>
+
+        <div style="margin-top:16px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15);border-radius:10px;padding:12px 14px">
+          <p style="font-size:13px;color:var(--success);font-weight:600;margin-bottom:4px">💡 خطوات حساب ضريبة الدخل</p>
+          <ol style="font-size:12px;color:var(--muted);line-height:2;padding-right:18px">
+            <li>احسب الراتب السنوي = الشهري × 12</li>
+            <li>اطرح الإعفاء الشخصي (9k أو 18k)</li>
+            <li>طبّق الشرائح التصاعدية على الباقي</li>
+            <li>اقسم الضريبة السنوية على 12 للحصول على الشهرية</li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <div class="section-title">
+      <h2>❓ أسئلة شائعة</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        هل تشمل الحاسبة التأمين الصحي؟
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        لا، الحاسبة تحتسب خصم الضمان الاجتماعي (7.5%) وضريبة الدخل فقط. بعض الشركات تقتطع إضافةً إلى ذلك أقساط التأمين الصحي أو قرض الإسكان أو مساهمات أخرى، لذا قد يختلف صافي راتبك الفعلي.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ما الفرق بين الإعفاء للأعزب والمتزوج؟
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        يتمتع الموظف الأعزب بإعفاء ضريبي سنوي قدره 9,000 دينار، بينما يصل إعفاء المتزوج إلى 18,000 دينار. يعني ذلك أن المتزوج لا يدفع ضريبة دخل إلا إذا تجاوز دخله السنوي 18,000 دينار (أي 1,500 دينار شهرياً تقريباً).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        كيف تعمل الحاسبة العكسية؟
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        الحاسبة العكسية تنطلق من صافي الراتب الذي تستلمه وتحسب بطريقة تكرارية (100 دورة) الراتب الإجمالي الذي نتج عنه هذا الصافي. مفيد جداً حين تتفاوض على عرض عمل بصافي معين وتريد معرفة الراتب الإجمالي في العقد.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        هل تنطبق هذه الأرقام على القطاع الخاص والقطاع العام؟
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        نعم بشكل عام، إلا أن موظفي الحكومة قد يكون لديهم فئات مختلفة من الضمان الاجتماعي أو التقاعد المدني الذي لا تغطيه هذه الحاسبة. كذلك قد تختلف بعض البدلات والمكافآت في طريقة احتسابها ضريبياً.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ما الحد الأدنى للدخل الخاضع للضريبة في الأردن؟
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        لا توجد ضريبة دخل على الإطلاق إذا كان دخلك السنوي أقل من الإعفاء الشخصي (9,000 دينار للأعزب ≈ 750 دينار شهرياً، أو 18,000 دينار للمتزوج ≈ 1,500 دينار شهرياً). فوق هذا الحد تبدأ الضريبة من 5%.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <p>
+      <strong>تنبيه:</strong> هذه الحاسبة للأغراض التوضيحية والتقريبية فقط.<br>
+      تعتمد على شرائح ضريبة الدخل الأردنية الموحّدة ونسبة الضمان الاجتماعي 7.5% للموظف.<br>
+      للحصول على أرقام دقيقة يُرجى مراجعة <strong>دائرة ضريبة الدخل والمبيعات</strong> أو قسم الموارد البشرية في جهة عملك.
+    </p>
+    <p style="margin-top:12px;color:rgba(122,142,168,0.4)">حاسبة الرواتب الأردنية © 2025</p>
+  </footer>
 
 </div>
 
 <script>
-
+// ── Tax calculation ──
 function calculateTax(monthlySalary, maritalStatus) {
-
   const annualSalary = monthlySalary * 12;
+  const exemption = maritalStatus === 'married' ? 18000 : 9000;
+  let taxableIncome = Math.max(annualSalary - exemption, 0);
 
-  let exemption = maritalStatus === 'married' ? 18000 : 9000;
+  const brackets = [
+    { limit: 5000,    rate: 0.05 },
+    { limit: 5000,    rate: 0.10 },
+    { limit: 5000,    rate: 0.15 },
+    { limit: 5000,    rate: 0.20 },
+    { limit: Infinity, rate: 0.25 }
+  ];
 
-  let taxableIncome = annualSalary - exemption;
+  let remaining = taxableIncome;
+  let annualTax = 0;
 
-  if (taxableIncome < 0) taxableIncome = 0;
+  for (let b of brackets) {
+    if (remaining <= 0) break;
+    const amount = Math.min(remaining, b.limit);
+    annualTax += amount * b.rate;
+    remaining -= amount;
+  }
+
+  return annualTax / 12;
+}
+
+// ── Format ──
+function fmt(n) { return n.toFixed(2) + ' د.أ'; }
+
+// ── Build step-by-step HTML ──
+function buildSteps(gross, maritalStatus) {
+  const annual = gross * 12;
+  const exemption = maritalStatus === 'married' ? 18000 : 9000;
+  const taxable = Math.max(annual - exemption, 0);
+  const social = gross * 0.075;
+  const tax = calculateTax(gross, maritalStatus);
 
   const brackets = [
     { limit: 5000, rate: 0.05 },
@@ -289,88 +722,96 @@ function calculateTax(monthlySalary, maritalStatus) {
     { limit: Infinity, rate: 0.25 }
   ];
 
-  let remaining = taxableIncome;
-  let annualTax = 0;
-
-  for (let bracket of brackets) {
-
-    if (remaining <= 0) break;
-
-    const amount = Math.min(remaining, bracket.limit);
-
-    annualTax += amount * bracket.rate;
-
-    remaining -= amount;
+  let bracketHtml = '';
+  let rem = taxable;
+  let tier = 1;
+  for (let b of brackets) {
+    if (rem <= 0) break;
+    const amt = Math.min(rem, b.limit);
+    bracketHtml += `<div class="step"><span class="s-label">شريحة ${tier} (${(b.rate*100).toFixed(0)}%): ${fmt(amt)}</span><span class="s-val">${fmt(amt * b.rate)}</span></div>`;
+    rem -= amt; tier++;
   }
 
-  return annualTax / 12;
+  return `
+    <div class="step"><span class="s-label">الراتب السنوي (×12)</span><span class="s-val">${fmt(annual)}</span></div>
+    <div class="step"><span class="s-label">الإعفاء الشخصي</span><span class="s-val">– ${fmt(exemption)}</span></div>
+    <div class="step"><span class="s-label">الدخل الخاضع للضريبة (سنوي)</span><span class="s-val">${fmt(taxable)}</span></div>
+    ${bracketHtml}
+    <div class="step"><span class="s-label">الضريبة الشهرية (÷12)</span><span class="s-val" style="color:var(--cyan)">${fmt(tax)}</span></div>
+    <div class="step"><span class="s-label">الضمان الاجتماعي (7.5%)</span><span class="s-val" style="color:var(--cyan)">${fmt(social)}</span></div>
+  `;
 }
 
-
+// ── Calculator 1 ──
 function calculateDeductions() {
-
   const salary = parseFloat(document.getElementById('grossSalary').value);
-  const maritalStatus = document.getElementById('maritalStatus1').value;
-
-  if (!salary || salary <= 0) {
-    alert('الرجاء إدخال راتب صحيح');
-    return;
-  }
+  const ms = document.getElementById('maritalStatus1').value;
+  if (!salary || salary <= 0) { shake('grossSalary'); return; }
 
   const social = salary * 0.075;
-  const tax = calculateTax(salary, maritalStatus);
-
+  const tax = calculateTax(salary, ms);
   const deductions = social + tax;
   const net = salary - deductions;
 
-  document.getElementById('social1').innerText = social.toFixed(2) + ' د.أ';
-  document.getElementById('tax1').innerText = tax.toFixed(2) + ' د.أ';
-  document.getElementById('deductions1').innerText = deductions.toFixed(2) + ' د.أ';
-  document.getElementById('net1').innerText = net.toFixed(2) + ' د.أ';
+  document.getElementById('steps1').innerHTML = buildSteps(salary, ms);
+  document.getElementById('social1').textContent = fmt(social);
+  document.getElementById('tax1').textContent = fmt(tax);
+  document.getElementById('deductions1').textContent = fmt(deductions);
+  document.getElementById('net1').textContent = fmt(net);
 
-  document.getElementById('results1').style.display = 'grid';
+  const r = document.getElementById('results1');
+  r.classList.add('visible');
 }
 
-
+// ── Calculator 2 (reverse) ──
 function reverseCalculate() {
-
   const targetNet = parseFloat(document.getElementById('netSalaryInput').value);
-  const maritalStatus = document.getElementById('maritalStatus2').value;
+  const ms = document.getElementById('maritalStatus2').value;
+  if (!targetNet || targetNet <= 0) { shake('netSalaryInput'); return; }
 
-  if (!targetNet || targetNet <= 0) {
-    alert('الرجاء إدخال صافي راتب صحيح');
-    return;
+  let gross = targetNet;
+  for (let i = 0; i < 200; i++) {
+    const s = gross * 0.075;
+    const t = calculateTax(gross, ms);
+    const diff = targetNet - (gross - s - t);
+    gross += diff;
+    if (Math.abs(diff) < 0.001) break;
   }
 
-  let estimatedGross = targetNet;
-
-  for (let i = 0; i < 100; i++) {
-
-    const social = estimatedGross * 0.075;
-    const tax = calculateTax(estimatedGross, maritalStatus);
-
-    const net = estimatedGross - social - tax;
-
-    const difference = targetNet - net;
-
-    estimatedGross += difference;
-  }
-
-  const social = estimatedGross * 0.075;
-  const tax = calculateTax(estimatedGross, maritalStatus);
-
+  const social = gross * 0.075;
+  const tax = calculateTax(gross, ms);
   const deductions = social + tax;
 
-  document.getElementById('gross2').innerText = estimatedGross.toFixed(2) + ' د.أ';
-  document.getElementById('social2').innerText = social.toFixed(2) + ' د.أ';
-  document.getElementById('tax2').innerText = tax.toFixed(2) + ' د.أ';
-  document.getElementById('deductions2').innerText = deductions.toFixed(2) + ' د.أ';
+  document.getElementById('steps2').innerHTML = buildSteps(gross, ms);
+  document.getElementById('gross2').textContent = fmt(gross);
+  document.getElementById('social2').textContent = fmt(social);
+  document.getElementById('tax2').textContent = fmt(tax);
+  document.getElementById('deductions2').textContent = fmt(deductions);
 
-  document.getElementById('results2').style.display = 'grid';
+  const r = document.getElementById('results2');
+  r.classList.add('visible');
 }
 
+// ── FAQ toggle ──
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// ── Shake input on error ──
+function shake(id) {
+  const el = document.getElementById(id);
+  el.style.borderColor = 'var(--error)';
+  el.style.animation = 'none';
+  setTimeout(() => {
+    el.style.borderColor = '';
+  }, 1200);
+  el.focus();
+}
+
+// ── Enter key support ──
+document.getElementById('grossSalary').addEventListener('keydown', e => { if (e.key === 'Enter') calculateDeductions(); });
+document.getElementById('netSalaryInput').addEventListener('keydown', e => { if (e.key === 'Enter') reverseCalculate(); });
 </script>
 
 </body>
 </html>
-
