@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jordan-tax-calculator.vercel.app/sitemap.xml
